@@ -1,0 +1,145 @@
+/*
+ * A simple paint program!
+ * 
+ */
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class SuperPaintProgram extends JFrame
+{
+    private Pixel[][] 	thePixels = new Pixel[12][20];	// "pixel" objects to use in drawing
+    private JButton	rButton = new JButton("RED"),	// buttons for red, green, blue
+	    		gButton = new JButton("GREEN"),
+	    		bButton = new JButton("BLUE");
+
+    private Color	currentColor = Color.RED;	// currently selected color
+    private JTextField	statusField =			// status field at the top of the window
+	    new JTextField("Currently selected color: " + currentColor);	
+
+    private boolean	mouseHeldDown = false;		// tracks whether the mouse is held down
+    
+    
+    // Constructor
+    public SuperPaintProgram()
+    {
+	// add the array of Pixel objects to a container
+	MouseHandler mh = new MouseHandler();
+	JPanel pixelContainer = new JPanel();
+	pixelContainer.setLayout(new GridLayout(thePixels.length, thePixels[0].length));
+	for (int i = 0; i < thePixels.length; i++) {
+	    for (int j = 0; j < thePixels[i].length; j++) {
+		thePixels[i][j] = new Pixel();
+		thePixels[i][j].addMouseListener(mh);
+		pixelContainer.add(thePixels[i][j]);
+	    }
+	}
+
+	// add the Button objects to a container
+	ButtonHandler bh = new ButtonHandler();
+	rButton.addActionListener(bh);
+	gButton.addActionListener(bh);
+	bButton.addActionListener(bh);
+	
+	JPanel buttonContainer = new JPanel();
+	buttonContainer.setLayout(new GridLayout(1, 3));
+	buttonContainer.add(rButton);
+	buttonContainer.add(gButton);
+	buttonContainer.add(bButton);
+
+	JPanel masterPanel = new JPanel();
+	masterPanel.setLayout(new BorderLayout());
+	masterPanel.add(buttonContainer, BorderLayout.SOUTH);
+	masterPanel.add(pixelContainer, BorderLayout.CENTER);
+	masterPanel.add(statusField, BorderLayout.NORTH);
+
+	
+	setTitle("Goin' Hard in the Paint");		// title of window
+	setSize(400, 250);				// width/height of window, in pixels
+								//*MC* if decrease 400 to 300 then every pixel will be a square instead of rectangle
+								//*MC* 400 mean (pixels in horizontal count)*(pixel's width) which is 20*20
+								//*MC* 250 mean (pixels in vertical count)*(pixel's height) which is 12*20=240 and the remaining 10 is for the button bar
+	setDefaultCloseOperation(EXIT_ON_CLOSE);	// makes the program stop running once the window is closed
+	
+	setContentPane(masterPanel);
+	setVisible(true);
+    }
+    
+
+    // Nested class representing one "pixel" on the drawing canvas
+    private class Pixel extends JPanel
+    {
+	private Color color = Color.CYAN;	// this pixel's current color
+	
+	// the paintComponent method is called whenever this component is rendered on the screen
+	public void paintComponent(Graphics g)
+	{
+	    g.setColor(color);
+	    g.fillRect(0,  0,  20, 20);	// 0, 0 is the upper left corner of the component
+	    				// 20, 20 indicates the width and height to fill for a single pixel
+	}
+    }
+
+    // Nested class that determines how to react to button presses.
+    private class ButtonHandler implements ActionListener
+    {
+	public void actionPerformed(ActionEvent e)
+	{
+	    Object src = e.getSource();
+	    if (src == rButton) {
+		currentColor = Color.RED;
+	    } else if (src == gButton) {
+		currentColor = Color.GREEN;
+	    } else if (src == bButton) {
+		currentColor = Color.BLUE;
+	    }
+	    statusField.setText("Currently selected color: " + currentColor);
+	}
+    }
+
+    // Nested class that determines how to react to mouse events.
+    private class MouseHandler implements MouseListener
+    {
+	@Override
+	public void mouseClicked(MouseEvent arg0)
+	{
+	    Pixel src = (Pixel)(arg0.getSource());
+	    src.color = currentColor;
+	    src.repaint();	// repaint triggers a call to the Pixel's paintComponent method
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0)
+	{
+	    if (mouseHeldDown)
+		mouseClicked(arg0);
+	    
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0)
+	{
+	    // TODO Auto-generated method stub
+	    
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0)
+	{
+	    mouseHeldDown = true;
+	    mouseClicked(arg0);
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0)
+	{
+	    mouseHeldDown = false;
+	}
+    }
+    
+    
+    public static void main(String[] args)
+    {
+	new SuperPaintProgram();
+    }
+}

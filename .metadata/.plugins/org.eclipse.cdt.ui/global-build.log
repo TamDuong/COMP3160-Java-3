@@ -1,0 +1,79 @@
+19:37:06 **** Incremental Build of configuration Debug for project justtry ****
+make all 
+Building target: justtry
+Invoking: MacOS X C Linker
+gcc  -o "justtry"  ./HelloMate.o   
+Undefined symbols for architecture x86_64:
+  "_main", referenced from:
+     implicit entry/start for main executable
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+make: *** [justtry] Error 1
+19:47:01 **** Incremental Build of configuration Debug for project justtry ****
+make all 
+Building file: ../HelloMate.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"HelloMate.d" -MT"HelloMate.d" -o "HelloMate.o" "../HelloMate.c"
+../HelloMate.c:9:1: warning: return type of 'main' is not 'int' [-Wmain-return-type]
+void main() {
+^
+../HelloMate.c:9:1: note: change return type to 'int'
+void main() {
+^~~~
+int
+1 warning generated.
+Finished building: ../HelloMate.c
+ 
+Building target: justtry
+Invoking: MacOS X C Linker
+gcc  -o "justtry"  ./HelloMate.o   
+Finished building target: justtry
+ 
+19:47:01 **** Build of configuration Debug for project test ****
+make all 
+Building file: ../src/test.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/test.d" -MT"src/test.d" -o "src/test.o" "../src/test.cpp"
+Finished building: ../src/test.cpp
+ 
+Building target: test
+Invoking: MacOS X C++ Linker
+g++  -o "test"  ./src/test.o   
+Finished building target: test
+ 
+19:47:06 **** Incremental Build of configuration Debug for project test ****
+make all 
+make: Nothing to be done for `all'.
+19:47:14 **** Incremental Build of configuration Debug for project test ****
+make all 
+make: Nothing to be done for `all'.
+19:47:15 **** Incremental Build of configuration Debug for project test ****
+make all 
+make: Nothing to be done for `all'.
+19:47:16 **** Incremental Build of configuration Debug for project test ****
+make all 
+make: Nothing to be done for `all'.
+19:47:17 **** Incremental Build of configuration Debug for project test ****
+make all 
+make: Nothing to be done for `all'.
+19:47:19 **** Incremental Build of configuration Debug for project test ****
+make all 
+make: Nothing to be done for `all'.
+19:47:20 **** Incremental Build of configuration Debug for project test ****
+make all 
+make: Nothing to be done for `all'.
+19:47:20 **** Incremental Build of configuration Debug for project test ****
+make all 
+make: Nothing to be done for `all'.
+19:47:22 **** Incremental Build of configuration Debug for project test ****
+make all 
+make: Nothing to be done for `all'.
+19:47:22 **** Incremental Build of configuration Debug for project test ****
+make all 
+make: Nothing to be done for `all'.
+19:48:01 **** Incremental Build of configuration Debug for project test ****
+make all 
+make: Nothing to be done for `all'.
+19:48:15 **** Incremental Build of configuration Debug for project justtry ****
+make all 
+make: Nothing to be done for `all'.

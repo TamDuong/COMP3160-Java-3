@@ -1,0 +1,70 @@
+/*
+ * Simple demonstration of a GUI.
+ * 
+ */
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+// JFrame is the class that represents a window -- we extend it to make our own GUI application
+public class SimpleGUIDemo extends JFrame
+{
+    // instance variables are the various components we want to include on the GUI
+    //  (in this case, 3 buttons and 1 text field)
+    private JButton	button1 = new JButton("OK"),
+	    		button2 = new JButton("Press me!"),
+	    		button3 = new JButton("Press me again!");
+    private JTextField	textfield = new JTextField("text here!");
+
+    // The constructor is used for various housekeeping operations and to lay out
+    //  the GUI components in the window.
+    public SimpleGUIDemo()
+    {
+	setTitle("Worst GUI Application Ever");		// title of window
+	setSize(400, 250);				// width/height of window, in pixels
+	setDefaultCloseOperation(EXIT_ON_CLOSE);	// makes the program stop running once the window is closed
+
+	// add an action listener to the three buttons - this allows
+	//  them to respond to "action events" like button presses
+	ButtonHandler bh = new ButtonHandler();
+	button1.addActionListener(bh);
+	button2.addActionListener(bh);
+	button3.addActionListener(bh);
+
+	// we make a "container" panel to hold the GUI elements
+	JPanel container = new JPanel();
+	container.setLayout(new GridLayout(3, 2));
+	container.add(button1);
+	container.add(button2);
+	container.add(button3);
+	container.add(textfield);
+
+	// make the container panel the "content pane" of the JFrame, and make
+	//  the JFrame visible
+	setContentPane(container);
+	setVisible(true);
+    }
+
+    // Nested class that determines how to react to button presses.
+    private class ButtonHandler implements ActionListener
+    {
+	// When a button is pressed, we get the source of the event, and
+	//  change the contents of the text field accordingly
+	public void actionPerformed(ActionEvent e)		//override actionPerformed method in interface ActionListener
+	{
+	    Object src = e.getSource();
+	    if (src == button1) {
+		textfield.setText("Button 1 pressed!");
+	    } else if (src == button2) {
+		textfield.setText("Button 2 pressed!");
+	    } else if (src == button3) {
+		textfield.setText("Button 3 pressed!");
+	    }
+	}
+    }
+    
+    public static void main(String[] args)
+    {
+	new SimpleGUIDemo();
+    }
+}

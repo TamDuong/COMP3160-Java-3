@@ -1,0 +1,90 @@
+/*
+ * Some examples of recursive methods.
+ * 
+ */
+
+public class RecursiveMethods
+{
+    // Returns the nth Fibonacci number. The "zeroth" and "first" Fibonacci
+    //  numbers are 0 and 1, respectively. Each subsequent Fibonacci number
+    //  is obtained by adding the two previous ones:
+    //  0, 1, 1, 2, 3, 5, 8, 13, 21, etc.
+    public static int fibo(int n)
+    {
+		if (n == 0 || n == 1)
+			return n;
+		else
+			return fibo(n - 1) + fibo(n - 2);
+    }
+
+    // Returns whether a given string is a palindrome (reads the same forward as
+    //  in reverse).
+    public static boolean isPalindrome(String n)
+    {
+		if (n.length() <= 1) // the empty string, and all strings of length 1,
+							// are palindromes
+			return true;
+		else if (n.charAt(0) != n.charAt(n.length() - 1)) // not a palindrome if
+														  // the first/last
+														  // chars don't match
+			return false;
+		else
+			// check the rest of the string (without the first/last chars)
+			return isPalindrome(n.substring(1, n.length() - 1));
+    }
+
+    // Wrapper method for linear search.
+    public static int linearSearch(int[] list, int key)
+    {
+    	return linearSearch(list, key, 0);
+    }
+
+    // Recursive implementation of linear search. The method keeps track of
+    //  where we are in the array with the parameter "where." Each time it's
+    //  called, it checks list[where] vs. the key to see if they match.
+    private static int linearSearch(int[] list, int key, int where)
+    {
+		if (where == list.length) // base case - key not found
+			return -1;
+		else if (key == list[where]) // base case - key found
+			return where;
+		else
+			return linearSearch(list, key, where + 1);
+    }
+
+    // Wrapper method for binary search. Remember that the list being searched
+    //  must be in order for this to work!
+    public static int binarySearch(int[] list, int key)
+    {
+    	return binarySearch(list, key, 0, list.length - 1);
+    }
+
+    // Recursive implementation of binary search. We use the parameters "start"
+    //  and "end" to determine the part of the array to focus on.
+    // *MC* the idea is List[midIndex] always equal to key
+	private static int binarySearch(int[] list, int key, int start, int end) 
+	{
+		if (start > end) // base case - key not found
+			return -1;
+		
+		int midIndex = (start + end) / 2;
+		if (key == list[midIndex]) // base case - key found
+			return midIndex;
+		else if (key < list[midIndex])
+			return binarySearch(list, key, start, midIndex - 1);
+		else
+			return binarySearch(list, key, midIndex + 1, end);
+	}
+
+    // Test main
+	public static void main(String[] args)
+	{
+		for (int i = 0; i <= 0; i++)
+			System.out.println(fibo(i));
+		
+		int[] l = {1, 3, 5, 7};
+		System.out.println(binarySearch(l, 5, 0, 3));	//*MC* I can still call the private method just because i'm still in in this class.
+	}
+}
+
+	
